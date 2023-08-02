@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "fd3cd1b6-b52c-44a8-81bb-b0296e345fe4",
+		"name": "Case Study6_Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15635131"
+	},
+	"item": [
+		{
+			"name": "User Based on Id_Positive_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//getSingleResource Positive Test cases\r",
+							"\r",
+							"// Validate 200 Status code\r",
+							"    pm.test(\"Validate Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the data field\r",
+							"    pm.test(\"Validate Response body contains Data field\", function () {\r",
+							"    pm.response.to.have.jsonBody('data');\r",
+							"    });\r",
+							"\r",
+							"     var jsonData = pm.response.json();\r",
+							"// Validate response contains the id field and value\r",
+							"       pm.test(\"Validate Response body contains id field and id value\", function () {\r",
+							"       pm.response.to.have.jsonBody('data.id');\r",
+							"       pm.expect(jsonData.data.id).to.eql(2);\r",
+							"    });  \r",
+							"// Validate response contains the email field and value\r",
+							"         pm.test(\"Response body contains email field and email value\", function () {\r",
+							"         pm.response.to.have.jsonBody('data.email');\r",
+							"         pm.expect(jsonData.data.email).to.eql('janet.weaver@reqres.in');\r",
+							"    });  \r",
+							"// Validate response contains the first_name field\r",
+							"       pm.test(\"Response body contains first_name field and first_name value\", function () {\r",
+							"       pm.response.to.have.jsonBody('data.first_name');\r",
+							"       pm.expect(jsonData.data.first_name).to.eql('Janet');\r",
+							"    });  \r",
+							"// Validate response contains the last_name field and value\r",
+							"      pm.test(\"Response body contains last_name field and last_name value\", function () {\r",
+							"      pm.response.to.have.jsonBody('data.last_name');\r",
+							"      pm.expect(jsonData.data.last_name).to.eql('Weaver');\r",
+							"    });  \r",
+							"// Validate response contains the avatar field and value\r",
+							"      pm.test(\"Response body contains avatar field and avatar value\", function () {\r",
+							"      pm.response.to.have.jsonBody('data.avatar');\r",
+							"      pm.expect(jsonData.data.avatar).to.eql('https://reqres.in/img/faces/2-image.jpg');\r",
+							"    });  \r",
+							"   \r",
+							"// Validate response contains the support field\r",
+							"      pm.test(\"Response body contains support field\", function () {\r",
+							"      pm.response.to.have.jsonBody('support');\r",
+							"    }); \r",
+							"// Validate response contains the url field and value\r",
+							"      pm.test(\"Response body contains url field and url value\", function () {\r",
+							"      pm.response.to.have.jsonBody('support.url');\r",
+							"      pm.expect(jsonData.support.url).to.eql('https://reqres.in/#support-heading');\r",
+							"    }); \r",
+							"// Validate response contains the text field and value\r",
+							"       pm.test(\"Response body contains text field and text value\", function () {\r",
+							"       pm.response.to.have.jsonBody('support.text');\r",
+							"       pm.expect(jsonData.support.text).to.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Based on Id_Negative_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Single User Negative Test cases\r",
+							"\r",
+							"// Validate Status code of Negative case\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the emails field\r",
+							"         pm.test(\"Response body contains Email field\", function () {\r",
+							"         pm.response.to.have.jsonBody('data.emails');\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"// Validate response contains the id value\r",
+							"       pm.test(\"Validate Response body contains id value\", function () {\r",
+							"       pm.expect(jsonData.data.id).to.eql(3);\r",
+							"    });  \r",
+							"\r",
+							"// Validate response does not contains the last_name value as Weaver\r",
+							"       pm.test(\"Validate Response body contains last_name value\", function () {\r",
+							"       pm.expect(jsonData.data.last_name).to.not.eql(\"Weaver\");\r",
+							"});\r",
+							"\r",
+							"// Validate response does not contains the first_name value as Weaver\r",
+							"       pm.test(\"Validate Response body contains first_name value\", function () {\r",
+							"       pm.expect(jsonData.data.first_name).to.eql(\"number\");\r",
+							"});\r",
+							"\r",
+							"// Validate response not contains the specific text value\r",
+							"       pm.test(\"Response body contains text value\", function () {\r",
+							"       pm.expect(jsonData.support.text).to.not.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

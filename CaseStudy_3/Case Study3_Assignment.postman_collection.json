@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "5fb37f62-24dd-4ed5-9bac-7280cbb97e2c",
+		"name": "Case Study3_Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15635131"
+	},
+	"item": [
+		{
+			"name": "Multiple Users_Postive_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//List Users Positive Testcases\r",
+							"\r",
+							"// Validate Status code of Positive  Case\r",
+							"    pm.test(\"Validate Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"   var jsonData = pm.response.json();\r",
+							"// Validate response contains the Page field and Page value\r",
+							"    pm.test(\"Validate Response body contains Page field and Page value\", function () {\r",
+							"    pm.response.to.have.jsonBody('page');\r",
+							"    pm.expect(jsonData.page).to.eql(1);\r",
+							"    });\r",
+							"\r",
+							"// Validate response contains the Per_Page field and Per_Page value\r",
+							"    pm.test(\"Validate Response body contains Per_Page field and Per_Page value\", function () {\r",
+							"    pm.response.to.have.jsonBody('per_page');\r",
+							"    pm.expect(jsonData.per_page).to.eql(6);\r",
+							"    });\r",
+							"\r",
+							"// Validate response contains the Total_Pages field and Total_Pages value\r",
+							"    pm.test(\"Validate Response body contains Total_Pages field and Total_Pages value\", function () {\r",
+							"    pm.response.to.have.jsonBody('total_pages');\r",
+							"    pm.expect(jsonData.total_pages).to.eql(2);\r",
+							"    });\r",
+							"\r",
+							"// Validate response contains the id field and id value with in data array\r",
+							"    pm.test(\"Validate Response body contains id field and id value with in data array\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[0].id');\r",
+							"    pm.expect(jsonData.data[0].id).to.eql(1);\r",
+							"    });    \r",
+							"\r",
+							"// Validate response contains the email field and email value with in data array\r",
+							"    pm.test(\"Validate Response body contains Email field and Email value with in data array\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[1].email');\r",
+							"    pm.expect(jsonData.data[1].email).to.eql('janet.weaver@reqres.in');\r",
+							"    }); \r",
+							"\r",
+							" // Validate response contains the last_name field and last_name value with in data array\r",
+							"    pm.test(\"Validate Response body contains last_name field and last_name value with in data array\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[2].last_name');\r",
+							"    pm.expect(jsonData.data[2].last_name).to.eql('Wong');\r",
+							"    }); \r",
+							"\r",
+							"// Validate response contains the text field and text value with in support object\r",
+							"    pm.test(\"Validate Response body contains text field and text value with in support object\", function () {\r",
+							"    pm.response.to.have.jsonBody('support.text');\r",
+							"    pm.expect(jsonData.support.text).to.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=1",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Multiple Users_Negative_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//List Users Negative Test cases\r",
+							"\r",
+							"// Validate Status code of Negative case\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							" var jsonData = pm.response.json();\r",
+							"// Validate response contains the Page field and Page value\r",
+							"    pm.test(\"Validate Response body contains Page field and Page value\", function () {\r",
+							"    pm.response.to.have.jsonBody('pages');\r",
+							"    pm.expect(jsonData.page).to.eql(2);\r",
+							"    });\r",
+							"\r",
+							" // Validate response contains the invalid field details  \r",
+							"    pm.test(\"Validate Response body contains invalid field details\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[0].invalidfield');\r",
+							"});\r",
+							"\r",
+							"// Validate the size of array\r",
+							"    pm.test(\"Validate data array size\", function () {\r",
+							"    pm.expect(pm.response.json().data.length).to.be.at.most(5);\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the last_name field and last_name value with in data array\r",
+							"    pm.test(\"Validate Response body contains last_name field and last_name value with in data array\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[2].last_name');\r",
+							"    pm.expect(jsonData.data[2].last_name).to.eql('Wongs');\r",
+							"    }); \r",
+							"\r",
+							"//Validate response value of email field within data array\r",
+							"   pm.test(\"Validate the value of 'email' field within 'data' array\", function () {\r",
+							"    pm.response.to.have.jsonBody('data[0].email');\r",
+							"    pm.expect(pm.response.json().data[0].email).to.be.a('number').and.not.empty;\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the text field and text value with in support object\r",
+							"    pm.test(\"Validate Response body contains text field and text value with in support object\", function () {\r",
+							"    pm.response.to.have.jsonBody('support.text');\r",
+							"    pm.expect(jsonData.support.text).to.not.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=1",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single User_Positive_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Single user Positive Test cases\r",
+							"\r",
+							"// Validate 200 Status code\r",
+							"    pm.test(\"Validate Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the data field\r",
+							"    pm.test(\"Validate Response body contains Data field\", function () {\r",
+							"    pm.response.to.have.jsonBody('data');\r",
+							"    });\r",
+							"\r",
+							"     var jsonData = pm.response.json();\r",
+							"// Validate response contains the id field and value\r",
+							"       pm.test(\"Validate Response body contains id field and id value\", function () {\r",
+							"       pm.response.to.have.jsonBody('data.id');\r",
+							"       pm.expect(jsonData.data.id).to.eql(2);\r",
+							"    });  \r",
+							"// Validate response contains the name field and value\r",
+							"         pm.test(\"Response body contains name field and name value\", function () {\r",
+							"         pm.response.to.have.jsonBody('data.name');\r",
+							"         pm.expect(jsonData.data.name).to.eql('fuchsia rose');\r",
+							"    });  \r",
+							"// Validate response contains the year field and value\r",
+							"       pm.test(\"Response body contains year field and year value\", function () {\r",
+							"       pm.response.to.have.jsonBody('data.year');\r",
+							"       pm.expect(jsonData.data.year).to.eql(2001);\r",
+							"    });  \r",
+							"// Validate response contains the color field and value\r",
+							"      pm.test(\"Response body contains color field and color value\", function () {\r",
+							"      pm.response.to.have.jsonBody('data.color');\r",
+							"      pm.expect(jsonData.data.color).to.eql('#C74375');\r",
+							"    });  \r",
+							"// Validate response contains the pantone_value field and value\r",
+							"      pm.test(\"Response body contains pantone_value field and pantone_value value\", function () {\r",
+							"      pm.response.to.have.jsonBody('data.pantone_value');\r",
+							"      pm.expect(jsonData.data.pantone_value).to.eql('17-2031');\r",
+							"    });  \r",
+							"   \r",
+							"// Validate response contains the support field\r",
+							"      pm.test(\"Response body contains support field\", function () {\r",
+							"      pm.response.to.have.jsonBody('support');\r",
+							"    }); \r",
+							"// Validate response contains the url field and value\r",
+							"      pm.test(\"Response body contains url field and url value\", function () {\r",
+							"      pm.response.to.have.jsonBody('support.url');\r",
+							"      pm.expect(jsonData.support.url).to.eql('https://reqres.in/#support-heading');\r",
+							"    }); \r",
+							"// Validate response contains the text field and value\r",
+							"       pm.test(\"Response body contains text field and text value\", function () {\r",
+							"       pm.response.to.have.jsonBody('support.text');\r",
+							"       pm.expect(jsonData.support.text).to.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/unknown/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"unknown",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single User_Negative_Testcases",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Single user Negative Test cases\r",
+							"\r",
+							"// Validate Status code of Negative case\r",
+							"    pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the names field\r",
+							"         pm.test(\"Response body contains names field\", function () {\r",
+							"         pm.response.to.have.jsonBody('data.names');\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"// Validate response contains the id value\r",
+							"       pm.test(\"Validate Response body contains id value\", function () {\r",
+							"       pm.expect(jsonData.data.id).to.eql(3);\r",
+							"    });  \r",
+							"\r",
+							"// Validate response not contains the name value as fuchsia rose\r",
+							"       pm.test(\"Validate Response body contains name value\", function () {\r",
+							"       pm.expect(jsonData.data.name).to.not.eql(\"fuchsia rose\");\r",
+							"});\r",
+							"\r",
+							"// Validate response contains the year value as string\r",
+							"       pm.test(\"Validate Response body contains year value as string\", function () {\r",
+							"       pm.expect(jsonData.data.year).to.eql('String');\r",
+							"});\r",
+							"// Validate response not contains the specific text value\r",
+							"       pm.test(\"Response body contains text value\", function () {\r",
+							"       pm.expect(jsonData.support.text).to.not.eql('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+							"    }); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/unknown/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"unknown",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
